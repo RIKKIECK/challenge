@@ -1,10 +1,19 @@
 package com.challenge.router;
 
+import com.challenge.dto.ProductDto;
 import com.challenge.handler.ProductHandler;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.RouterOperation;
+import org.springdoc.core.annotations.RouterOperations;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -20,6 +29,31 @@ public class ProductRouter {
     }
 
     @Bean
+    @RouterOperations(
+            {
+                    @RouterOperation(
+                            path = "",
+                            produces = {
+                                    MediaType.APPLICATION_JSON_VALUE
+                            },
+                            method = RequestMethod.GET,
+                            beanClass = ProductHandler.class,
+                            beanMethod = "getAll",
+                            operation = @Operation(
+                                    operationId = "getAll",
+                                    responses = {
+                                            @ApiResponse(
+                                                    responseCode = "200",
+                                                    description = "successful operation",
+                                                    content = @Content(schema = @Schema(
+                                                            implementation = ProductDto.class
+                                                    ))
+                                            )
+                                    }
+                            )
+                    )
+            }
+    )
     RouterFunction<ServerResponse> router(ProductHandler handler) {
         return RouterFunctions.route()
                 .GET(PATH, handler::getAll)
