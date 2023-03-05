@@ -1,7 +1,7 @@
 package com.challenge.router;
 
-import com.challenge.dto.ProductDto;
-import com.challenge.handler.ProductHandler;
+import com.challenge.dto.ShortDto;
+import com.challenge.handler.ShortHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,7 +20,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 @Configuration
 @Slf4j
-public class ProductRouter {
+public class ShortRouter {
     private static final String PATH = "product";
 
     @Bean
@@ -37,7 +37,7 @@ public class ProductRouter {
                                     MediaType.APPLICATION_JSON_VALUE
                             },
                             method = RequestMethod.GET,
-                            beanClass = ProductHandler.class,
+                            beanClass = ShortHandler.class,
                             beanMethod = "getAll",
                             operation = @Operation(
                                     operationId = "getAll",
@@ -46,7 +46,7 @@ public class ProductRouter {
                                                     responseCode = "200",
                                                     description = "successful operation",
                                                     content = @Content(schema = @Schema(
-                                                            implementation = ProductDto.class
+                                                            implementation = ShortDto.class
                                                     ))
                                             )
                                     }
@@ -54,7 +54,7 @@ public class ProductRouter {
                     )
             }
     )
-    RouterFunction<ServerResponse> router(ProductHandler handler) {
+    RouterFunction<ServerResponse> router(ShortHandler handler) {
         return RouterFunctions.route()
                 .GET(PATH, handler::getAll)
                 .GET(PATH + "/{id}", handler::getOne)

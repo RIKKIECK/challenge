@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Data
 
-public class ProductDto {
+public class ShortDto {
     @NotBlank(message = "name is mandatory")
     private String name;
     @Min(value = 1, message = "price must be greater then zero")

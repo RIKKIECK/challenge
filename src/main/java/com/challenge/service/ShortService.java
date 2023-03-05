@@ -1,5 +1,5 @@
 package com.challenge.service;
-import com.challenge.dto.ProductDto;
+import com.challenge.dto.ShortDto;
 import com.challenge.entity.Product;
 import com.challenge.exception.CustomException;
 import com.challenge.repository.ProductRepository;
@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ProductService {
+public class ShortService {
     private final static String NF_MESSAGE = "product not found";
     private final static String NAME_MESSAGE = "product name already in use";
 
@@ -28,13 +28,13 @@ public class ProductService {
                 .switchIfEmpty(Mono.error(new CustomException(HttpStatus.NOT_FOUND, NF_MESSAGE)));
     }
 
-    public Mono<Product> save(ProductDto dto) {
+    public Mono<Product> save(ShortDto dto) {
         Mono<Boolean> existsName = productRepository.findByName(dto.getName()).hasElement();
         return existsName.flatMap(exists -> exists ? Mono.error(new CustomException(HttpStatus.BAD_REQUEST, NAME_MESSAGE))
                 : productRepository.save(Product.builder().name(dto.getName()).price(dto.getPrice()).build()));
     }
 
-    public Mono<Product> update(int id, ProductDto dto) {
+    public Mono<Product> update(int id, ShortDto dto) {
         Mono<Boolean> productId = productRepository.findById(id).hasElement();
         Mono<Boolean> productRepeatedName = productRepository.repeatedName(id, dto.getName()).hasElement();
         return productId.flatMap(
