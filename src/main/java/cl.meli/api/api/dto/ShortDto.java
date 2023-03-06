@@ -1,4 +1,4 @@
-package com.challenge.dto;
+package cl.meli.api.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

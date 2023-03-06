@@ -1,8 +1,8 @@
-package com.challenge.service;
-import com.challenge.dto.ShortDto;
-import com.challenge.entity.ShortEntity;
-import com.challenge.exception.CustomException;
-import com.challenge.repository.ShortRepository;
+package cl.meli.api.api.service;
+import cl.meli.api.api.dto.ShortDto;
+import cl.meli.api.api.entity.ShortEntity;
+import cl.meli.api.api.exception.CustomException;
+import cl.meli.api.api.repository.ShortRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

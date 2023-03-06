@@ -1,7 +1,7 @@
-package com.challenge.router;
+package cl.meli.api.api.router;
 
-import com.challenge.dto.ShortDto;
-import com.challenge.handler.ShortHandler;
+import cl.meli.api.api.dto.ShortDto;
+import cl.meli.api.api.handler.ShortHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

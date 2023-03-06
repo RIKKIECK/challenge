@@ -1,4 +1,4 @@
-package com.challenge.entity;
+package cl.meli.api.api.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

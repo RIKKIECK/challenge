@@ -1,4 +1,4 @@
-package com.challenge.config;
+package cl.meli.api.api.config;
 
 import io.r2dbc.spi.ConnectionFactories;
 import io.r2dbc.spi.ConnectionFactory;

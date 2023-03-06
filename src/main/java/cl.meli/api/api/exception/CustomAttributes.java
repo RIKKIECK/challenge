@@ -1,4 +1,4 @@
-package com.challenge.exception;
+package cl.meli.api.api.exception;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
 import org.springframework.stereotype.Component;

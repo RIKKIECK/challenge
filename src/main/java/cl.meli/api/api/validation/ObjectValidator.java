@@ -1,7 +1,7 @@
-package com.challenge.validation;
+package cl.meli.api.api.validation;
 
 
-import com.challenge.exception.CustomException;
+import cl.meli.api.api.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

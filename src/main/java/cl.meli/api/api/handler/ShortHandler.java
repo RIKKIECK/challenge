@@ -1,9 +1,9 @@
-package com.challenge.handler;
+package cl.meli.api.api.handler;
 
-import com.challenge.dto.ShortDto;
-import com.challenge.entity.ShortEntity;
-import com.challenge.service.ShortService;
-import com.challenge.validation.ObjectValidator;
+import cl.meli.api.api.dto.ShortDto;
+import cl.meli.api.api.entity.ShortEntity;
+import cl.meli.api.api.service.ShortService;
+import cl.meli.api.api.validation.ObjectValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

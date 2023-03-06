@@ -1,6 +1,6 @@
-package com.challenge.repository;
+package cl.meli.api.api.repository;
 
-import com.challenge.entity.ShortEntity;
+import cl.meli.api.api.entity.ShortEntity;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
