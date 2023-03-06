@@ -1,8 +1,8 @@
 package com.challenge.service;
 import com.challenge.dto.ShortDto;
-import com.challenge.entity.Product;
+import com.challenge.entity.ShortEntity;
 import com.challenge.exception.CustomException;
-import com.challenge.repository.ProductRepository;
+import com.challenge.repository.ShortRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,35 +17,35 @@ public class ShortService {
     private final static String NF_MESSAGE = "product not found";
     private final static String NAME_MESSAGE = "product name already in use";
 
-    private final ProductRepository productRepository;
+    private final ShortRepository shortRepository;
 
-    public Flux<Product> getAll() {
-        return productRepository.findAll();
+    public Flux<ShortEntity> getAll() {
+        return shortRepository.findAll();
     }
 
-    public Mono<Product> getById(int id) {
-        return productRepository.findById(id)
+    public Mono<ShortEntity> getById(int id) {
+        return shortRepository.findById(id)
                 .switchIfEmpty(Mono.error(new CustomException(HttpStatus.NOT_FOUND, NF_MESSAGE)));
     }
 
-    public Mono<Product> save(ShortDto dto) {
-        Mono<Boolean> existsName = productRepository.findByName(dto.getName()).hasElement();
+    public Mono<ShortEntity> save(ShortDto dto) {
+        Mono<Boolean> existsName = shortRepository.findByName(dto.getName()).hasElement();
         return existsName.flatMap(exists -> exists ? Mono.error(new CustomException(HttpStatus.BAD_REQUEST, NAME_MESSAGE))
-                : productRepository.save(Product.builder().name(dto.getName()).price(dto.getPrice()).build()));
+                : shortRepository.save(ShortEntity.builder().name(dto.getName()).price(dto.getPrice()).build()));
     }
 
-    public Mono<Product> update(int id, ShortDto dto) {
-        Mono<Boolean> productId = productRepository.findById(id).hasElement();
-        Mono<Boolean> productRepeatedName = productRepository.repeatedName(id, dto.getName()).hasElement();
+    public Mono<ShortEntity> update(int id, ShortDto dto) {
+        Mono<Boolean> productId = shortRepository.findById(id).hasElement();
+        Mono<Boolean> productRepeatedName = shortRepository.repeatedName(id, dto.getName()).hasElement();
         return productId.flatMap(
                 existsId -> existsId ?
                         productRepeatedName.flatMap(existsName -> existsName ? Mono.error(new CustomException(HttpStatus.BAD_REQUEST, NAME_MESSAGE))
-                                : productRepository.save(new Product(id, dto.getName(), dto.getPrice())))
+                                : shortRepository.save(new ShortEntity(id, dto.getName(), dto.getPrice())))
                         : Mono.error(new CustomException(HttpStatus.NOT_FOUND, NF_MESSAGE)));
     }
 
     public Mono<Void> delete(int id) {
-        Mono<Boolean> productId = productRepository.findById(id).hasElement();
-        return productId.flatMap(exists -> exists ? productRepository.deleteById(id) : Mono.error(new CustomException(HttpStatus.NOT_FOUND, NF_MESSAGE)));
+        Mono<Boolean> productId = shortRepository.findById(id).hasElement();
+        return productId.flatMap(exists -> exists ? shortRepository.deleteById(id) : Mono.error(new CustomException(HttpStatus.NOT_FOUND, NF_MESSAGE)));
     }
 }

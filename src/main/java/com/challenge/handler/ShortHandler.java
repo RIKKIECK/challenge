@@ -1,7 +1,7 @@
 package com.challenge.handler;
 
 import com.challenge.dto.ShortDto;
-import com.challenge.entity.Product;
+import com.challenge.entity.ShortEntity;
 import com.challenge.service.ShortService;
 import com.challenge.validation.ObjectValidator;
 import lombok.RequiredArgsConstructor;
@@ -23,29 +23,29 @@ public class ShortHandler {
     private final ObjectValidator objectValidator;
 
     public Mono<ServerResponse> getAll(ServerRequest request) {
-        Flux<Product> products = shortService.getAll();
-        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(products, Product.class);
+        Flux<ShortEntity> products = shortService.getAll();
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(products, ShortEntity.class);
     }
 
     public Mono<ServerResponse> getOne(ServerRequest request) {
         int id = Integer.valueOf(request.pathVariable("id"));
-        Mono<Product> product = shortService.getById(id);
-        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(product, Product.class);
+        Mono<ShortEntity> product = shortService.getById(id);
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(product, ShortEntity.class);
     }
 
     public Mono<ServerResponse> save(ServerRequest request) {
         Mono<ShortDto> dtoMono = request.bodyToMono(ShortDto.class).doOnNext(objectValidator::validate);
-        return dtoMono.flatMap(shortDto -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(shortService.save(shortDto), Product.class));
+        return dtoMono.flatMap(shortDto -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(shortService.save(shortDto), ShortEntity.class));
     }
 
     public Mono<ServerResponse> update(ServerRequest request) {
         int id = Integer.valueOf(request.pathVariable("id"));
         Mono<ShortDto> dtoMono = request.bodyToMono(ShortDto.class).doOnNext(objectValidator::validate);
-        return dtoMono.flatMap(shortDto -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(shortService.update(id, shortDto), Product.class));
+        return dtoMono.flatMap(shortDto -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(shortService.update(id, shortDto), ShortEntity.class));
     }
 
     public Mono<ServerResponse> delete(ServerRequest request) {
         int id = Integer.valueOf(request.pathVariable("id"));
-        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(shortService.delete(id), Product.class);
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(shortService.delete(id), ShortEntity.class);
     }
 }
